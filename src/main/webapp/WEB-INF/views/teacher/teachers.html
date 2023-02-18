@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://codepen.io/perry_nt/details/OWoNxK">
+    <style>
+        :root {
+            --bg: #3C465C;
+            --primary: #78FFCD;
+            --solid: #fff;
+            --btn-w: 10em;
+            --dot-w: calc(var(--btn-w)*.2);
+            --tr-X: calc(var(--btn-w) - var(--dot-w));
+        }
+        * {box-sizing: border-box;}
+        *:before, *:after {box-sizing: border-box;}
+
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-flow: wrap;
+            background: #c6d2d5;
+            font-size: 20px;
+            font-family: 'Titillium Web', sans-serif;
+        }
+        h1 {
+            color: var(--solid);
+            font-size: 2.5rem;
+            margin-top: 6rem;
+        }
+        .btn {
+            position: relative;
+            margin: 0 auto;
+            width: var(--btn-w);
+            color: var(--primary);
+            border: .15em solid var(--primary);
+            border-radius: 5em;
+            text-transform: uppercase;
+            text-align: center;
+            font-size: 1.3em;
+            line-height: 2em;
+            cursor: pointer;
+        }
+        .dot {
+            content: '';
+            position: absolute;
+            top: 0;
+            width: var(--dot-w);
+            height: 100%;
+            border-radius: 100%;
+            transition: all 300ms ease;
+            display: none;
+        }
+        .dot:after {
+            content: '';
+            position: absolute;
+            left: calc(50% - .4em);
+            top: -.4em;
+            height: .8em;
+            width: .8em;
+            background: var(--primary);
+            border-radius: 1em;
+            border: .25em solid var(--solid);
+            box-shadow: 0 0 .7em var(--solid),
+            0 0 2em var(--primary);
+        }
+        .btn:hover .dot,
+        .btn:focus .dot {
+            animation: atom 2s infinite linear;
+            display: block;
+        }
+        @keyframes atom {
+            0% {transform: translateX(0) rotate(0);}
+            30%{transform: translateX(var(--tr-X)) rotate(0);}
+            50% {transform: translateX(var(--tr-X)) rotate(180deg);}
+            80% {transform: translateX(0) rotate(180deg);}
+            100% {transform: translateX(0) rotate(360deg);}
+        }
+        .trs{
+            margin-top: 10%;
+        }
+        .asdf{
+            margin-bottom: 900px;
+        }
+    </style>
+</head>
+<body>
+<div class="container" style="margin-bottom: 800px">
+    <table class="table" style="margin-top: 50%">
+        <thead   class="asdf" >
+        <tr class="trs" style="margin-top: 90px">
+            <th scope="col">1</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Students</th>
+            <th scope="col">Update</th>
+            <th scope="col">Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="teacher:${teachers}">
+            <td th:field="${teacher.id}"></td>
+            <td th:text="${teacher.firstName}"></td>
+            <td th:text="${teacher.email}"></td>
+            <td th:text="${teacher.lastName}"></td>
+            <td><a th:href="@{/teachers/students/{id}(id=${teacher.id})}">quantity</a></td>
+            <td><a th:href="@{/teachers/update/{id}(id = ${teacher.id})}">Update</a></td>
+            <td>
+                <form th:method="DELETE" th:action="@{/teachers/delete/{id}(id=${teacher.getId})}">
+                    <input type="submit" value="delete"></form></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="btn"><a href="/teachers/addTeacher">
+        <span>Add teacher</span>
+        <div class="dot"></div>
+    </a></div>
+    <h1>&#x261D; Hover on the button &#x261D;</h1>
+</div>
+<button type="button"><a href="/">Go back</a></button>
+</body>
+</html>

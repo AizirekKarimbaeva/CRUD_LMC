@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Group's students</title>
+  <link href="https://nikitahl.com/infinite-background-image-scroll">
+<style>
+  body {
+    padding: 10px;
+  }
+
+  .container {
+    width: 70%;
+    height: 300px;
+    margin: 10px auto;
+    border: 1px solid #eee;
+    border-radius: 3px;
+    box-shadow: 0 15px 15px 1px rgba(0,0,0,0.3);
+    background: url(https://images.unsplash.com/photo-1667937026547-1b7cce7525b7?crop=entropy&cs=tinysrgb&fm=jpg&ixid=MnwzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2Njk3NTIzNzE&ixlib=rb-4.0.3&q=80) repeat-x;
+    background-size: 500px 300px;
+    animation: scroll 2s linear infinite;
+  }
+
+  .container--fixed {
+    width: 500px;
+    max-width: 80%;
+  }
+
+  @keyframes scroll {
+    to {
+      background-position: -500px 0;
+    }
+  }
+
+</style>
+</head>
+<body>
+<table class="table" >
+  <thead>
+  <tr >
+    <th scope="col">#</th>
+    <th scope="col">Student's name</th>
+    <th scope="col">Student's last name</th>
+    <th scope="col">Student's email</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="student:${students}">
+    <td th:text="${student.id}"></td>
+    <td th:text="${student.firstName}"></td>
+    <td th:text="${student.lastName}"></td>
+    <td th:text="${student.email}"></td>
+  </tr>
+  </tbody>
+</table>
+<div class="container"></div>
+<div class="container container--fixed"></div>
+
+</body>
+</html>
